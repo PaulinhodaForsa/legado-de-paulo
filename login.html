@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login do Painel</title>
+  <style>
+    body {
+      background-color: black;
+      color: lime;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+    h1 {
+      color: yellow;
+      text-shadow: 1px 1px red;
+    }
+    input {
+      padding: 10px;
+      border: 2px solid lime;
+      background-color: #111;
+      color: lime;
+      font-size: 16px;
+      font-family: 'Courier New', monospace;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: lime;
+      color: black;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    p#erro {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔒 Acesso ao Painel</h1>
+  <input type="password" id="senha" placeholder="Digite a senha">
+  <button onclick="verificarSenha()">Entrar</button>
+  <p id="erro"></p>
+
+  <script>
+    function verificarSenha() {
+      const senha = document.getElementById('senha').value;
+      const correta = "admin123"; // Altere essa senha como quiser
+
+      if (senha === correta) {
+        window.location.href = "admin.html";
+      } else {
+        document.getElementById("erro").textContent = "Senha incorreta.";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Legado - Criador de Páginas</title>
+  <style>
+    body {
+      background-color: black;
+      color: lime;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+    }
+    h1 {
+      color: yellow;
+      text-shadow: 2px 2px red;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      background-color: #111;
+      color: lime;
+      border: 1px solid lime;
+      font-family: 'Courier New', monospace;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: lime;
+      color: black;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>⚙️ Criador de Páginas</h1>
+
+  <label for="tipo">Tipo de página:</label>
+  <select id="tipo" onchange="mostrarFormulario()">
+    <option value="">-- Selecione --</option>
+    <option value="momento">Momento Marcante</option>
+    <!-- Outros tipos como game, filme serão adicionados depois -->
+  </select>
+
+  <div id="formMomento" class="hidden">
+    <label>Título:</label>
+    <input type="text" id="titulo">
+
+    <label>Ano:</label>
+    <input type="text" id="ano">
+
+    <label>URL da Imagem de Capa:</label>
+    <input type="text" id="imagem">
+
+    <label>Relato:</label>
+    <textarea id="relato" rows="8"></textarea>
+
+    <button onclick="criarMomento()">📄 Gerar e Baixar Página</button>
+  </div>
+
+  <script>
+    function mostrarFormulario() {
+      const tipo = document.getElementById('tipo').value;
+      document.getElementById('formMomento').classList.add('hidden');
+      if (tipo === 'momento') {
+        document.getElementById('formMomento').classList.remove('hidden');
+      }
+    }
+
+    function criarMomento() {
+      const titulo = document.getElementById('titulo').value;
+      const ano = document.getElementById('ano').value;
+      const imagem = document.getElementById('imagem').value;
+      const relato = document.getElementById('relato').value.replace(/\n/g, '<br>');
+      const nomeArquivo = titulo.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '') + ".html";
+
+      const conteudo = `<!DOCTYPE html>
+<html lang='pt-BR'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>${titulo}</title>
+<style>
+body { background-color: black; color: lime; font-family: 'Courier New', monospace; margin: 0; padding: 0; }
+header { background-color: #00008b; padding: 20px; text-align: center; border-bottom: 4px double lime; }
+header h1 { color: yellow; text-shadow: 2px 2px red; margin-bottom: 5px; }
+header p { color: #39ff14; margin: 0; font-size: 14px; }
+nav { background-color: #333; padding: 10px; text-align: center; }
+nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: bold; }
+nav a:hover { color: cyan; }
+main { padding: 30px 20px; max-width: 800px; margin: auto; }
+img { max-width: 100%; border: 2px solid lime; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto; }
+h2 { color: yellow; text-align: center; }
+p { margin-bottom: 15px; line-height: 1.6; }
+footer { background-color: #00008b; color: white; text-align: center; padding: 10px; border-top: 4px double lime; margin-top: 40px; }
+</style>
+</head>
+<body>
+<header>
+<h1>${titulo}</h1>
+<p>${ano}</p>
+</header>
+<nav>
+<a href='index.html'>Sobre Mim</a>
+<a href='fotos.html'>Fotos</a>
+<a href='legado.html'>Legado</a>
+<a href='filmes.html'>Filmes</a>
+<a href='games.html'>Games</a>
+<a href='momentos.html' style='color: deeppink;'>Momentos Marcantes</a>
+</nav>
+<main>
+<img src='${imagem}' alt='Capa do momento'>
+<p>${relato}</p>
+<div style='text-align: center; margin-top: 20px;'>
+<a href='momentos.html' style='color: cyan;'>⬅ Voltar para Momentos Marcantes</a>
+</div>
+</main>
+<footer>
+<p>Feito com ❤️ por Paulo | Estilo anos 90 😎</p>
+</footer>
+</body>
+</html>`;
+
+      const blob = new Blob([conteudo], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = nomeArquivo;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
