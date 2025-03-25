@@ -22,6 +22,19 @@
       color: yellow;
       text-shadow: 2px 2px red;
     }
+    nav {
+      background-color: #333;
+      padding: 10px;
+    }
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: cyan;
+    }
     main {
       padding: 40px;
     }
@@ -66,15 +79,18 @@
       color: cyan;
       text-decoration: underline;
     }
+    .foto-banner {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid lime;
+      margin-top: 30px;
+    }
     footer {
       background-color: #00008b;
       color: white;
       text-align: center;
       padding: 10px;
       border-top: 4px double lime;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
     }
   </style>
 </head>
@@ -84,7 +100,18 @@
     <p>Essa seção contém memórias pessoais e está protegida por senha.</p>
   </header>
 
+  <nav>
+    <a href="index.html">Sobre Mim</a>
+    <a href="fotos.html">Fotos</a>
+    <a href="legado.html">Legado</a>
+    <a href="filmes.html">Filmes</a>
+    <a href="games.html">Games</a>
+    <a href="momentosmarcantes.html" style="color: deeppink;">Momentos Marcantes</a>
+  </nav>
+
   <main>
+    <img class="foto-banner" src="https://static.vecteezy.com/system/resources/thumbnails/046/896/911/small/camera-andgraphs-lying-on-a-plain-surface-on-beautiful-background-top-view-photo.jpg" alt="Imagem representativa da galeria de fotos">
+
     <div id="formulario">
       <p>Por favor, insira a senha para acessar:</p>
       <input type="password" id="senha" placeholder="Digite a senha">
@@ -96,7 +123,8 @@
     <div class="conteudo-protegido" id="conteudo">
       <div class="album-link">
         <a href="familia.html">📁 Álbum Família</a>
-	  <div class="album-link">
+      </div>
+      <div class="album-link">
         <a href="familia.html">📁 Álbum Viagens</a>
       </div>
     </div>

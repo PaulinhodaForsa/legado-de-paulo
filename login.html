@@ -44,6 +44,12 @@
       cursor: pointer;
       margin-top: 10px;
     }
+    .voltar {
+      margin-top: 20px;
+      color: cyan;
+      text-decoration: none;
+      font-weight: bold;
+    }
     p#erro {
       color: red;
       margin-top: 10px;
@@ -57,12 +63,14 @@
   <button onclick="verificarSenha()">Entrar</button>
   <p id="erro"></p>
 
+  <a class="voltar" href="index.html">⬅ Voltar para a Página Inicial</a>
+
   <script>
     function verificarSenha() {
       const senha = document.getElementById('senha').value;
       const correta = "admin123";
       if (senha === correta) {
-        window.location.href = "admin-painel.html";
+        window.location.href = "admin.html";
       } else {
         document.getElementById("erro").textContent = "Senha incorreta.";
       }

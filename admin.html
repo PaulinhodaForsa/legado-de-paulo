@@ -92,7 +92,8 @@
     <select id="tipo" onchange="mostrarFormulario()">
       <option value="">-- Selecione --</option>
       <option value="momento">Momento Marcante</option>
-      <!-- Outros tipos como game, filme serão adicionados depois -->
+      <option value="jogo">Jogo</option>
+      <option value="filme">Filme</option>
     </select>
 
     <div id="formMomento" class="hidden">
@@ -108,7 +109,45 @@
       <label>Relato:</label>
       <textarea id="relato" rows="8"></textarea>
 
-      <button onclick="criarMomento()">📄 Gerar e Baixar Página</button>
+      <button onclick="criarPagina('momento')">📄 Gerar e Baixar Página</button>
+    </div>
+
+    <div id="formJogo" class="hidden">
+      <label>Nome do Jogo:</label>
+      <input type="text" id="jogoTitulo">
+
+      <label>Ano:</label>
+      <input type="text" id="jogoAno">
+
+      <label>Categoria:</label>
+      <input type="text" id="jogoCategoria">
+
+      <label>URL da Capa do Jogo:</label>
+      <input type="text" id="jogoImagem">
+
+      <label>Comentário pessoal:</label>
+      <textarea id="jogoDescricao" rows="8"></textarea>
+
+      <button onclick="criarPagina('jogo')">🎮 Gerar e Baixar Página</button>
+    </div>
+
+    <div id="formFilme" class="hidden">
+      <label>Nome do Filme:</label>
+      <input type="text" id="filmeTitulo">
+
+      <label>Ano:</label>
+      <input type="text" id="filmeAno">
+
+      <label>Categoria:</label>
+      <input type="text" id="filmeCategoria">
+
+      <label>URL da Capa do Filme:</label>
+      <input type="text" id="filmeImagem">
+
+      <label>Comentário pessoal:</label>
+      <textarea id="filmeDescricao" rows="8"></textarea>
+
+      <button onclick="criarPagina('filme')">🎬 Gerar e Baixar Página</button>
     </div>
   </main>
 
@@ -118,19 +157,58 @@
 
   <script>
     function mostrarFormulario() {
-      const tipo = document.getElementById('tipo').value;
       document.getElementById('formMomento').classList.add('hidden');
+      document.getElementById('formJogo').classList.add('hidden');
+      document.getElementById('formFilme').classList.add('hidden');
+
+      const tipo = document.getElementById('tipo').value;
       if (tipo === 'momento') {
         document.getElementById('formMomento').classList.remove('hidden');
+      } else if (tipo === 'jogo') {
+        document.getElementById('formJogo').classList.remove('hidden');
+      } else if (tipo === 'filme') {
+        document.getElementById('formFilme').classList.remove('hidden');
       }
     }
 
-    function criarMomento() {
-      const titulo = document.getElementById('titulo').value;
-      const ano = document.getElementById('ano').value;
-      const imagem = document.getElementById('imagem').value;
-      const relato = document.getElementById('relato').value.replace(/\n/g, '<br>');
+    function criarPagina(tipo) {
+      let titulo, ano, imagem, descricao, categoria;
+      if (tipo === 'momento') {
+        titulo = document.getElementById('titulo').value;
+        ano = document.getElementById('ano').value;
+        imagem = document.getElementById('imagem').value;
+        descricao = document.getElementById('relato').value.replace(/\n/g, '<br>');
+      } else if (tipo === 'jogo') {
+        titulo = document.getElementById('jogoTitulo').value;
+        ano = document.getElementById('jogoAno').value;
+        imagem = document.getElementById('jogoImagem').value;
+        categoria = document.getElementById('jogoCategoria').value;
+        descricao = document.getElementById('jogoDescricao').value.replace(/\n/g, '<br>');
+      } else if (tipo === 'filme') {
+        titulo = document.getElementById('filmeTitulo').value;
+        ano = document.getElementById('filmeAno').value;
+        imagem = document.getElementById('filmeImagem').value;
+        categoria = document.getElementById('filmeCategoria').value;
+        descricao = document.getElementById('filmeDescricao').value.replace(/\n/g, '<br>');
+      }
+
       const nomeArquivo = titulo.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '') + ".html";
+
+      let corpo = "";
+      if (tipo === 'momento') {
+        corpo = `<img src='${imagem}' alt='Capa do momento'>
+        <div style='white-space: pre-wrap; word-wrap: break-word;'>${descricao}</div>
+        <div style='text-align: center; margin-top: 20px;'>
+          <a href='momentos.html' style='color: cyan;'>⬅ Voltar para Momentos Marcantes</a>
+        </div>`;
+      } else {
+        corpo = `<img src='${imagem}' alt='Capa'>
+        <h2>${categoria}</h2>
+        <div style='white-space: pre-wrap; word-wrap: break-word;'>${descricao}</div>
+        <div style='text-align: center; margin-top: 20px;'>
+          <a href='${tipo === 'jogo' ? 'games' : 'filmes'}.html' style='color: cyan;'>⬅ Voltar para ${tipo === 'jogo' ? 'Jogos' : 'Filmes'}</a>
+        </div>`;
+      }
 
       const conteudo = `<!DOCTYPE html>
 <html lang='pt-BR'>
@@ -149,7 +227,7 @@ nav a:hover { color: cyan; }
 main { padding: 30px 20px; max-width: 800px; margin: auto; }
 img { max-width: 100%; border: 2px solid lime; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto; }
 h2 { color: yellow; text-align: center; }
-p { margin-bottom: 15px; line-height: 1.6; }
+div { margin-bottom: 15px; line-height: 1.6; }
 footer { background-color: #00008b; color: white; text-align: center; padding: 10px; border-top: 4px double lime; margin-top: 40px; }
 </style>
 </head>
@@ -167,11 +245,7 @@ footer { background-color: #00008b; color: white; text-align: center; padding: 1
 <a href='momentos.html' style='color: deeppink;'>Momentos Marcantes</a>
 </nav>
 <main>
-<img src='${imagem}' alt='Capa do momento'>
-<p>${relato}</p>
-<div style='text-align: center; margin-top: 20px;'>
-<a href='momentos.html' style='color: cyan;'>⬅ Voltar para Momentos Marcantes</a>
-</div>
+${corpo}
 </main>
 <footer>
 <p>Feito com ❤️ por Paulo | Estilo anos 90 😎</p>
