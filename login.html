@@ -12,9 +12,15 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       height: 100vh;
       margin: 0;
-      flex-direction: column;
+      padding: 20px;
+    }
+    img.top-banner {
+      max-width: 300px;
+      margin-bottom: 20px;
+      border: 2px solid lime;
     }
     h1 {
       color: yellow;
@@ -45,7 +51,8 @@
   </style>
 </head>
 <body>
-  <h1>🔒 Acesso ao Painel</h1>
+  <img src="https://framerusercontent.com/images/97wPN1Hwfi0BWWdL8K1lmEux4.webp" alt="Imagem sombria" class="top-banner">
+  <h1>🔒 Acesso ao Restrito</h1>
   <input type="password" id="senha" placeholder="Digite a senha">
   <button onclick="verificarSenha()">Entrar</button>
   <p id="erro"></p>
@@ -53,10 +60,9 @@
   <script>
     function verificarSenha() {
       const senha = document.getElementById('senha').value;
-      const correta = "admin123"; // Altere essa senha como quiser
-
+      const correta = "admin123";
       if (senha === correta) {
-        window.location.href = "admin.html";
+        window.location.href = "admin-painel.html";
       } else {
         document.getElementById("erro").textContent = "Senha incorreta.";
       }
