@@ -9,12 +9,35 @@
       background-color: black;
       color: lime;
       font-family: 'Courier New', monospace;
-      padding: 20px;
+      padding: 0;
+      margin: 0;
     }
-    h1 {
+    header {
+      background-color: #00008b;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 4px double lime;
+    }
+    header h1 {
       color: yellow;
       text-shadow: 2px 2px red;
+    }
+    nav {
+      background-color: #333;
+      padding: 10px;
       text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      color: cyan;
+    }
+    main {
+      padding: 20px;
     }
     label {
       display: block;
@@ -40,33 +63,58 @@
     .hidden {
       display: none;
     }
+    footer {
+      background-color: #00008b;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      border-top: 4px double lime;
+      margin-top: 30px;
+    }
   </style>
 </head>
 <body>
-  <h1>⚙️ Criador de Páginas</h1>
+  <header>
+    <h1>⚙️ Painel de Criação de Páginas</h1>
+  </header>
 
-  <label for="tipo">Tipo de página:</label>
-  <select id="tipo" onchange="mostrarFormulario()">
-    <option value="">-- Selecione --</option>
-    <option value="momento">Momento Marcante</option>
-    <!-- Outros tipos como game, filme serão adicionados depois -->
-  </select>
+  <nav>
+    <a href="index.html">Sobre Mim</a>
+    <a href="fotos.html">Fotos</a>
+    <a href="legado.html">Legado</a>
+    <a href="filmes.html">Filmes</a>
+    <a href="games.html">Games</a>
+    <a href="momentos.html" style="color: deeppink;">Momentos Marcantes</a>
+  </nav>
 
-  <div id="formMomento" class="hidden">
-    <label>Título:</label>
-    <input type="text" id="titulo">
+  <main>
+    <label for="tipo">Tipo de página:</label>
+    <select id="tipo" onchange="mostrarFormulario()">
+      <option value="">-- Selecione --</option>
+      <option value="momento">Momento Marcante</option>
+      <!-- Outros tipos como game, filme serão adicionados depois -->
+    </select>
 
-    <label>Ano:</label>
-    <input type="text" id="ano">
+    <div id="formMomento" class="hidden">
+      <label>Título:</label>
+      <input type="text" id="titulo">
 
-    <label>URL da Imagem de Capa:</label>
-    <input type="text" id="imagem">
+      <label>Ano:</label>
+      <input type="text" id="ano">
 
-    <label>Relato:</label>
-    <textarea id="relato" rows="8"></textarea>
+      <label>URL da Imagem de Capa:</label>
+      <input type="text" id="imagem">
 
-    <button onclick="criarMomento()">📄 Gerar e Baixar Página</button>
-  </div>
+      <label>Relato:</label>
+      <textarea id="relato" rows="8"></textarea>
+
+      <button onclick="criarMomento()">📄 Gerar e Baixar Página</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>Feito com ❤️ por Paulo | Estilo anos 90 😎</p>
+  </footer>
 
   <script>
     function mostrarFormulario() {
